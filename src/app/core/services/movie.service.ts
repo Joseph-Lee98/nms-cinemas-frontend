@@ -18,7 +18,7 @@ export interface Movie {
 })
 export class MovieService {
   private apiUrl =
-    'http://ec2-107-22-131-165.compute-1.amazonaws.com:8080/movies';
+    'http://ec2-107-22-131-165.compute-1.amazonaws.com:8081/movies';
 
   constructor(private http: HttpClient) {}
 
