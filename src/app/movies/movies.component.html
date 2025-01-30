@@ -1,1 +1,27 @@
-<p>movies works!</p>
+<p class="text-center text-muted" *ngIf="loading">Loading movies...</p>
+<p class="text-center text-danger" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+<div class="movie-list" *ngIf="!loading && movies.length > 0">
+  <div class="movie d-flex align-items-start" *ngFor="let movie of movies">
+    <img
+      *ngIf="movie.posterUrl"
+      [src]="movie.posterUrl"
+      alt="{{ movie.title }}"
+      class="movie-img me-3"
+    />
+    <div class="movie-content">
+      <h2 class="h5">{{ movie.title }}</h2>
+      <h3 class="h6 text-muted">Genre: {{ movie.genre }}</h3>
+      <p><strong>Language:</strong> {{ movie.language }}</p>
+      <p><strong>Duration:</strong> {{ movie.durationMinutes }} min</p>
+      <p>{{ movie.description }}</p>
+    </div>
+  </div>
+</div>
+
+<p
+  class="text-center text-muted"
+  *ngIf="!loading && errorMessage.length === 0 && movies.length === 0"
+>
+  No movies available.
+</p>
