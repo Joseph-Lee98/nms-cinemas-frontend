@@ -1,6 +1,8 @@
 FROM nginx:latest
 
-COPY . /usr/share/nginx/html/
+WORKDIR /usr/share/nginx/html
+
+COPY dist/nms-cinemas-frontend/ . 
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
