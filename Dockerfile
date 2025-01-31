@@ -1,6 +1,6 @@
 FROM nginx:latest
 
-COPY . /usr/share/nginx/html
+COPY dist/nms-cinemas-frontend/ /usr/share/nginx/html/
 
 EXPOSE 80
 
