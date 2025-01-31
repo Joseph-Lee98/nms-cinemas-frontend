@@ -2,7 +2,7 @@ FROM nginx:latest
 
 WORKDIR /usr/share/nginx/html
 
-COPY dist/nms-cinemas-frontend/ . 
+COPY . .
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
