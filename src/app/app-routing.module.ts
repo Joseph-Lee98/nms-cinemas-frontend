@@ -9,14 +9,7 @@ const routes: Routes = [
       import('./movies/movies.module').then((m) => m.MoviesModule),
   },
   {
-    path: 'login',
-    loadChildren: () =>
-      import('./authentication-form/authentication-form.module').then(
-        (m) => m.AuthenticationFormModule
-      ),
-  },
-  {
-    path: 'register',
+    path: '',
     loadChildren: () =>
       import('./authentication-form/authentication-form.module').then(
         (m) => m.AuthenticationFormModule
