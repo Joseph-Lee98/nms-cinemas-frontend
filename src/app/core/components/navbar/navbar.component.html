@@ -35,5 +35,5 @@
   </div>
 </nav>
 <p *ngIf="isLoggedIn" class="text-center text-success">
-  You are logged in as <strong>{{ (currentUser$ | async)?.username }}</strong>
+  You are logged in as <strong>{{ (currentUser$ | async)?.name }}</strong>
 </p>

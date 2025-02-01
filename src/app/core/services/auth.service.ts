@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -11,7 +12,9 @@ export class AuthService {
   private currentUserSubject = new BehaviorSubject<any>(null);
   currentUser$ = this.currentUserSubject.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.loadUserFromStorage();
+  }
 
   isLoggedIn(): boolean {
     return !!this.currentUserSubject.value;
@@ -23,15 +26,23 @@ export class AuthService {
   }
 
   registerUser(name: string, email: string, password: string): Observable<any> {
-    return this.http.post(`${this.baseUrl}/register`, {
-      name,
-      email,
-      password,
-    });
+    return this.http
+      .post(`${this.baseUrl}/register`, { name, email, password })
+      .pipe(
+        tap((user) => {
+          this.currentUserSubject.next(user);
+          localStorage.setItem('user', JSON.stringify(user));
+        })
+      );
   }
 
   loginUser(email: string, password: string): Observable<any> {
-    return this.http.post(`${this.baseUrl}/login`, { email, password });
+    return this.http.post(`${this.baseUrl}/login`, { email, password }).pipe(
+      tap((user) => {
+        this.currentUserSubject.next(user);
+        localStorage.setItem('user', JSON.stringify(user));
+      })
+    );
   }
 
   loadUserFromStorage(): void {
