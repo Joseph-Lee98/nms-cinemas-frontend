@@ -1,1 +1,63 @@
-<p>authentication-form works!</p>
+<div>
+  <h3>
+    {{ isLoginForm ? "Log into your account:" : "Register for an account:" }}
+  </h3>
+  <form [formGroup]="authenticationForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3" *ngIf="!isLoginForm">
+      <label class="form-label">Name</label>
+      <input type="text" class="form-control" formControlName="name" />
+      <small
+        *ngIf="
+          authenticationForm.get('name')?.invalid &&
+          authenticationForm.get('name')?.touched
+        "
+        class="text-danger"
+      >
+        Name is required (Min: 2 chars, Max: 50).
+      </small>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Email</label>
+      <input type="email" class="form-control" formControlName="email" />
+      <small
+        *ngIf="
+          authenticationForm.get('email')?.invalid &&
+          authenticationForm.get('email')?.touched
+        "
+        class="text-danger"
+      >
+        Enter a valid email address.
+      </small>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Password</label>
+      <input type="password" class="form-control" formControlName="password" />
+      <small
+        *ngIf="
+          authenticationForm.get('password')?.invalid &&
+          authenticationForm.get('password')?.touched
+        "
+        class="text-danger"
+      >
+        Password must be at least 8 characters and include an uppercase letter,
+        a lowercase letter, and a number.
+      </small>
+    </div>
+
+    <button
+      class="btn btn-primary"
+      type="submit"
+      [disabled]="authenticationForm.invalid"
+    >
+      {{ isLoginForm ? "Login" : "Register" }}
+    </button>
+
+    <p class="text-center text-muted" *ngIf="loading">
+      {{ isLoginForm ? "Logging in..." : "Registering account..." }}
+    </p>
+
+    <small class="text-center text-danger" *ngIf="errorMessage">{{
+      errorMessage
+    }}</small>
+  </form>
+</div>
