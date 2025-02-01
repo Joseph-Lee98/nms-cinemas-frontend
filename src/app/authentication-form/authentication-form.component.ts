@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '../core/services/auth.service';
 
 @Component({
@@ -31,15 +31,22 @@ export class AuthenticationFormComponent implements OnInit {
           Validators.required,
           Validators.minLength(2),
           Validators.maxLength(50),
+          Validators.pattern(/^[A-Za-z\s'-]+$/),
         ],
       ],
-      email: ['', [Validators.required, Validators.email]],
+      email: [
+        '',
+        [Validators.required, Validators.email, Validators.maxLength(100)],
+      ],
       password: [
         '',
         [
           Validators.required,
           Validators.minLength(8),
-          Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/),
+          Validators.maxLength(100),
+          Validators.pattern(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/
+          ),
         ],
       ],
     });
