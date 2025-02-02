@@ -1,8 +1,11 @@
 <p class="text-center text-muted" *ngIf="loading">Loading movies...</p>
 <p class="text-center text-danger" *ngIf="errorMessage">{{ errorMessage }}</p>
 
-<div class="movie-list" *ngIf="!loading && movies.length > 0">
-  <div class="movie d-flex align-items-start" *ngFor="let movie of movies">
+<div class="movie-list" *ngIf="!loading && (movies$ | async)?.length">
+  <div
+    class="movie d-flex align-items-start"
+    *ngFor="let movie of (movies$ | async)!"
+  >
     <img
       *ngIf="movie.posterUrl"
       [src]="movie.posterUrl"
@@ -21,7 +24,7 @@
 
 <p
   class="text-center text-muted"
-  *ngIf="!loading && errorMessage.length === 0 && movies.length === 0"
+  *ngIf="!loading && errorMessage.length === 0 && !(movies$ | async)?.length"
 >
   No movies available.
 </p>

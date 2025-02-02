@@ -1,34 +1,30 @@
 import { Component, OnInit } from '@angular/core';
-import { Movie, MovieService } from '../core/services/movie.service';
+import { Observable } from 'rxjs';
+import { MovieService, Movie } from '../core/services/movie.service';
 
 @Component({
   selector: 'app-movies',
-  standalone: false,
-
   templateUrl: './movies.component.html',
-  styleUrl: './movies.component.css',
+  standalone: false,
+  styleUrls: ['./movies.component.css'],
 })
 export class MoviesComponent implements OnInit {
-  movies: Movie[] = [];
+  movies$!: Observable<Movie[]>;
   loading: boolean = true;
   errorMessage: string = '';
 
   constructor(private movieService: MovieService) {}
 
   ngOnInit(): void {
-    this.fetchMovies();
-  }
+    this.movies$ = this.movieService.movies$;
+    this.movieService.fetchMovies();
 
-  fetchMovies(): void {
-    this.movieService.getMovies().subscribe({
-      next: (data) => {
-        this.movies = data;
+    this.movies$.subscribe({
+      next: () => (this.loading = false),
+      error: (err) => {
         this.loading = false;
-      },
-      error: (error) => {
-        console.error('Error fetching movies:', error);
-        this.loading = false;
-        this.errorMessage = 'Failed to fetch movies. Please try again later.';
+        this.errorMessage =
+          err || 'Failed to fetch movies. Please try again later.';
       },
     });
   }

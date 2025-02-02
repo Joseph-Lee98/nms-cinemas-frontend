@@ -15,6 +15,18 @@ const routes: Routes = [
         (m) => m.AuthenticationFormModule
       ),
   },
+  {
+    path: '',
+    loadChildren: () =>
+      import('./userpage/userpage.module').then((m) => m.UserpageModule),
+  },
+  {
+    path: '',
+    loadChildren: () =>
+      import('./admindashboard/admindashboard.module').then(
+        (m) => m.AdmindashboardModule
+      ),
+  },
   { path: '**', component: PagenotfoundComponent },
 ];
 

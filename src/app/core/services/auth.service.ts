@@ -20,6 +20,16 @@ export class AuthService {
     return !!this.currentUserSubject.value;
   }
 
+  isAdmin(): boolean {
+    const user = this.currentUserSubject.value;
+    return user && user.role === 'ADMIN';
+  }
+
+  isUser(): boolean {
+    const user = this.currentUserSubject.value;
+    return user && user.role === 'USER';
+  }
+
   logout(): void {
     this.currentUserSubject.next(null);
     localStorage.removeItem('user');

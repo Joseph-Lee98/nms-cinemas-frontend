@@ -1,0 +1,116 @@
+<div>
+  <h3>Add a New Movie:</h3>
+  <form [formGroup]="addMovieForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label class="form-label">Title</label>
+      <input type="text" class="form-control" formControlName="title" />
+      <small
+        class="text-danger"
+        *ngIf="
+          addMovieForm.get('title')?.invalid &&
+          addMovieForm.get('title')?.touched
+        "
+      >
+        Title is required (Min: 2 chars, Max: 100).
+      </small>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Genre</label>
+      <select class="form-control" formControlName="genre">
+        <option *ngFor="let genre of genres" [value]="genre">
+          {{ genre }}
+        </option>
+      </select>
+      <small
+        class="text-danger"
+        *ngIf="
+          addMovieForm.get('genre')?.invalid &&
+          addMovieForm.get('genre')?.touched
+        "
+      >
+        Please select a genre.
+      </small>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Language</label>
+      <select class="form-control" formControlName="language">
+        <option *ngFor="let language of languages" [value]="language">
+          {{ language }}
+        </option>
+      </select>
+      <small
+        class="text-danger"
+        *ngIf="
+          addMovieForm.get('language')?.invalid &&
+          addMovieForm.get('language')?.touched
+        "
+      >
+        Please select a language.
+      </small>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Duration (Minutes)</label>
+      <input
+        type="number"
+        class="form-control"
+        formControlName="durationMinutes"
+      />
+      <small
+        class="text-danger"
+        *ngIf="
+          addMovieForm.get('durationMinutes')?.invalid &&
+          addMovieForm.get('durationMinutes')?.touched
+        "
+      >
+        Duration must be at least 1 minute.
+      </small>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Description</label>
+      <textarea class="form-control" formControlName="description"></textarea>
+      <small
+        class="text-danger"
+        *ngIf="
+          addMovieForm.get('description')?.invalid &&
+          addMovieForm.get('description')?.touched
+        "
+      >
+        Description is required (Min: 10 chars, Max: 500).
+      </small>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Poster URL</label>
+      <input type="text" class="form-control" formControlName="posterUrl" />
+      <small
+        class="text-danger"
+        *ngIf="
+          addMovieForm.get('posterUrl')?.invalid &&
+          addMovieForm.get('posterUrl')?.touched
+        "
+      >
+        Must be a valid image URL (.jpg, .jpeg, .png, .webp, .gif, .svg).
+      </small>
+    </div>
+
+    <button
+      class="btn btn-primary"
+      type="submit"
+      [disabled]="addMovieForm.invalid"
+    >
+      Add Movie
+    </button>
+
+    <p class="text-center text-muted" *ngIf="loading">Adding movie...</p>
+    <p class="text-center text-success" *ngIf="successMessage">
+      {{ successMessage }}
+    </p>
+    <small class="text-center text-danger" *ngIf="errorMessage">{{
+      errorMessage
+    }}</small>
+  </form>
+</div>

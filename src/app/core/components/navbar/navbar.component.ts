@@ -20,6 +20,10 @@ export class NavbarComponent {
     return this.authService.isLoggedIn();
   }
 
+  get isAdmin(): Boolean {
+    return this.authService.isAdmin();
+  }
+
   logout(): void {
     this.authService.logout();
     this.router.navigate(['']);
