@@ -1,0 +1,62 @@
+<div>
+  <h3>Add a New Theatre:</h3>
+  <form [formGroup]="addTheatreForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label class="form-label">Theatre Name</label>
+      <input type="text" class="form-control" formControlName="name" />
+      <small
+        class="text-danger"
+        *ngIf="
+          addTheatreForm.get('name')?.invalid &&
+          addTheatreForm.get('name')?.touched
+        "
+      >
+        Theatre name is required (Min: 2 chars, Max: 100).
+      </small>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Location</label>
+      <input type="text" class="form-control" formControlName="location" />
+      <small
+        class="text-danger"
+        *ngIf="
+          addTheatreForm.get('location')?.invalid &&
+          addTheatreForm.get('location')?.touched
+        "
+      >
+        Location is required (Min: 2 chars, Max: 100).
+      </small>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Capacity</label>
+      <input type="number" class="form-control" formControlName="capacity" />
+      <small
+        class="text-danger"
+        *ngIf="
+          addTheatreForm.get('capacity')?.invalid &&
+          addTheatreForm.get('capacity')?.touched
+        "
+      >
+        Capacity must be a positive integer.
+      </small>
+    </div>
+
+    <button
+      class="btn btn-primary"
+      type="submit"
+      [disabled]="addTheatreForm.invalid"
+    >
+      Add Theatre
+    </button>
+
+    <p class="text-center text-muted" *ngIf="loading">Adding theatre...</p>
+    <p class="text-center text-success" *ngIf="successMessage">
+      {{ successMessage }}
+    </p>
+    <small class="text-center text-danger" *ngIf="errorMessage">{{
+      errorMessage
+    }}</small>
+  </form>
+</div>

@@ -1,4 +1,11 @@
-<button class="btn btn-primary mb-3" (click)="toggleAddMovieForm()">
-  {{ showAddMovieForm ? "Cancel" : "Add a New Movie" }}
-</button>
-<app-add-movie *ngIf="showAddMovieForm"></app-add-movie>
+<div class="d-flex flex-column align-items-start gap-3">
+  <button class="btn btn-primary" (click)="toggleAddMovieForm()">
+    {{ showAddMovieForm ? "Cancel" : "Add a New Movie" }}
+  </button>
+  <app-add-movie *ngIf="showAddMovieForm"></app-add-movie>
+
+  <button class="btn btn-primary" (click)="toggleAddTheatreForm()">
+    {{ showAddTheatreForm ? "Cancel" : "Add a New Theatre" }}
+  </button>
+  <app-add-theatre *ngIf="showAddTheatreForm"></app-add-theatre>
+</div>
