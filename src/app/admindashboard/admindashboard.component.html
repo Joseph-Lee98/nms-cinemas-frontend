@@ -1,2 +1,4 @@
-<p>admindashboard works!</p>
-<app-add-movie></app-add-movie>
+<button class="btn btn-primary mb-3" (click)="toggleAddMovieForm()">
+  {{ showAddMovieForm ? "Cancel" : "Add a New Movie" }}
+</button>
+<app-add-movie *ngIf="showAddMovieForm"></app-add-movie>
