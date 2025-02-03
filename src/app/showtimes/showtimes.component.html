@@ -1,0 +1,25 @@
+<p class="text-center text-muted" *ngIf="loading">Loading showtimes...</p>
+<p class="text-center text-danger" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+<h2 class="text-center">Showtimes for Movie</h2>
+
+<div class="showtime-list" *ngIf="!loading && (showtimes$ | async)?.length">
+  <div
+    class="showtime d-flex align-items-start"
+    *ngFor="let showtime of (showtimes$ | async)!"
+  >
+    <div class="showtime-content">
+      <h3 class="h5">{{ showtime.theatreName }}</h3>
+      <p><strong>Location:</strong> {{ showtime.theatreLocation }}</p>
+      <p><strong>Show Date:</strong> {{ showtime.showDate }}</p>
+      <p><strong>Available Seats:</strong> {{ showtime.availableSeats }}</p>
+    </div>
+  </div>
+</div>
+
+<p
+  class="text-center text-muted"
+  *ngIf="!loading && errorMessage.length === 0 && !(showtimes$ | async)?.length"
+>
+  No showtimes available.
+</p>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MovieService, Movie } from '../core/services/movie.service';
 import { AuthService } from '../core/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-movies',
@@ -18,7 +19,8 @@ export class MoviesComponent implements OnInit {
 
   constructor(
     private movieService: MovieService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -39,7 +41,7 @@ export class MoviesComponent implements OnInit {
   }
 
   bookTickets(movieId: number): void {
-    console.log(`Booking tickets for movie ID: ${movieId}`);
+    this.router.navigate([`/showtimes/${movieId}`]);
   }
 
   editMovie(movieId: number): void {

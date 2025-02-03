@@ -10,6 +10,8 @@ export interface Showtime {
   theatreId: number;
   showDate: Date;
   availableSeats: number;
+  theatreName?: string;
+  theatreLocation?: string;
 }
 
 @Injectable({
@@ -26,6 +28,16 @@ export class ShowtimeService {
 
   fetchShowtimes(): void {
     this.http.get<Showtime[]>(this.apiUrl).subscribe({
+      next: (showtimes) => this.showtimesSubject.next(showtimes || []),
+      error: (error) => {
+        console.error('Error fetching showtimes:', error);
+        this.showtimesSubject.next([]);
+      },
+    });
+  }
+
+  fetchShowtimesByMovieId(movieId: number): void {
+    this.http.get<Showtime[]>(`${this.apiUrl}/${movieId}`).subscribe({
       next: (showtimes) => this.showtimesSubject.next(showtimes || []),
       error: (error) => {
         console.error('Error fetching showtimes:', error);

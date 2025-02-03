@@ -27,6 +27,11 @@ const routes: Routes = [
         (m) => m.AdmindashboardModule
       ),
   },
+  {
+    path: '',
+    loadChildren: () =>
+      import('./showtimes/showtimes.module').then((m) => m.ShowtimesModule),
+  },
   { path: '**', component: PagenotfoundComponent },
 ];
 

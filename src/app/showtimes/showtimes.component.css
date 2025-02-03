@@ -1,0 +1,36 @@
+.showtime-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.showtime {
+  display: flex;
+  align-items: stretch;
+  background-color: #f9f9f9;
+  border: 2px solid #007bff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.showtime:hover {
+  transform: scale(1.05);
+}
+
+.showtime-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.showtime h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.showtime p {
+  margin: 0.25rem 0;
+}
