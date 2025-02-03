@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MovieService, Movie } from '../core/services/movie.service';
+import { AuthService } from '../core/services/auth.service';
 
 @Component({
   selector: 'app-movies',
@@ -12,8 +13,13 @@ export class MoviesComponent implements OnInit {
   movies$!: Observable<Movie[]>;
   loading: boolean = true;
   errorMessage: string = '';
+  isLoggedIn$!: Observable<boolean>;
+  isAdmin$!: Observable<boolean>;
 
-  constructor(private movieService: MovieService) {}
+  constructor(
+    private movieService: MovieService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.movies$ = this.movieService.movies$;
@@ -27,5 +33,20 @@ export class MoviesComponent implements OnInit {
           err || 'Failed to fetch movies. Please try again later.';
       },
     });
+
+    this.isLoggedIn$ = this.authService.isLoggedIn$;
+    this.isAdmin$ = this.authService.isAdmin$;
+  }
+
+  bookTickets(movieId: number): void {
+    console.log(`Booking tickets for movie ID: ${movieId}`);
+  }
+
+  editMovie(movieId: number): void {
+    console.log(`Editing movie ID: ${movieId}`);
+  }
+
+  deleteMovie(movieId: number): void {
+    console.log(`Deleting movie ID: ${movieId}`);
   }
 }

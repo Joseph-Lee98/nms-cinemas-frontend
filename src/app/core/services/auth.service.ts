@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -12,6 +12,10 @@ export class AuthService {
   private currentUserSubject = new BehaviorSubject<any>(null);
   currentUser$ = this.currentUserSubject.asObservable();
 
+  isLoggedIn$ = this.currentUser$.pipe(map((user) => !!user));
+
+  isAdmin$ = this.currentUser$.pipe(map((user) => user?.role === 'ADMIN'));
+
   constructor(private http: HttpClient) {
     this.loadUserFromStorage();
   }
@@ -21,13 +25,11 @@ export class AuthService {
   }
 
   isAdmin(): boolean {
-    const user = this.currentUserSubject.value;
-    return user && user.role === 'ADMIN';
+    return this.currentUserSubject.value?.role === 'ADMIN';
   }
 
   isUser(): boolean {
-    const user = this.currentUserSubject.value;
-    return user && user.role === 'USER';
+    return this.currentUserSubject.value?.role === 'USER';
   }
 
   logout(): void {

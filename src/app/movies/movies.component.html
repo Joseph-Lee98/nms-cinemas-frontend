@@ -18,6 +18,29 @@
       <p><strong>Language:</strong> {{ movie.language }}</p>
       <p><strong>Duration:</strong> {{ movie.durationMinutes }} min</p>
       <p>{{ movie.description }}</p>
+      <div class="mt-3 d-flex gap-2">
+        <button
+          class="btn btn-primary"
+          *ngIf="isLoggedIn$ | async"
+          (click)="bookTickets(movie.movieId)"
+        >
+          Book Tickets
+        </button>
+        <button
+          class="btn btn-warning"
+          *ngIf="isAdmin$ | async"
+          (click)="editMovie(movie.movieId)"
+        >
+          Edit
+        </button>
+        <button
+          class="btn btn-danger"
+          *ngIf="isAdmin$ | async"
+          (click)="deleteMovie(movie.movieId)"
+        >
+          Delete
+        </button>
+      </div>
     </div>
   </div>
 </div>
