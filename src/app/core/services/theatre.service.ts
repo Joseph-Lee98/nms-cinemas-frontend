@@ -21,15 +21,15 @@ export class TheatreService {
 
   constructor(private http: HttpClient) {}
 
-  // fetchTheatres(): void {
-  //   this.http.get<Theatre[]>(this.apiUrl).subscribe({
-  //     next: (theatres) => this.theatresSubject.next(theatres || []),
-  //     error: (error) => {
-  //       console.error('Error fetching theatres:', error);
-  //       this.theatresSubject.next([]);
-  //     },
-  //   });
-  // }
+  fetchTheatres(): void {
+    this.http.get<Theatre[]>(this.apiUrl).subscribe({
+      next: (theatres) => this.theatresSubject.next(theatres || []),
+      error: (error) => {
+        console.error('Error fetching theatres:', error);
+        this.theatresSubject.next([]);
+      },
+    });
+  }
 
   addTheatre(theatre: Theatre): Observable<Theatre> {
     return this.http.post<Theatre>(this.apiUrl, theatre).pipe(

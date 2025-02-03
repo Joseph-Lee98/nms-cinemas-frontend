@@ -10,6 +10,7 @@ import { Component } from '@angular/core';
 export class AdmindashboardComponent {
   showAddMovieForm: boolean = false;
   showAddTheatreForm: boolean = false;
+  showAddShowtimeForm: boolean = false;
 
   toggleAddMovieForm(): void {
     this.showAddMovieForm = !this.showAddMovieForm;
@@ -17,5 +18,9 @@ export class AdmindashboardComponent {
 
   toggleAddTheatreForm(): void {
     this.showAddTheatreForm = !this.showAddTheatreForm;
+  }
+
+  toggleAddShowtimeForm(): void {
+    this.showAddShowtimeForm = !this.showAddShowtimeForm;
   }
 }

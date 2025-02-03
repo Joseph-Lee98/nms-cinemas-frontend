@@ -1,0 +1,72 @@
+<div *ngIf="!loadingMovies && !loadingTheatres">
+  <h3>Add a New Showtime:</h3>
+  <form [formGroup]="addShowtimeForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label class="form-label">Movie</label>
+      <select class="form-control" formControlName="movieId">
+        <option *ngFor="let movie of movies" [value]="movie.movieId">
+          {{ movie.title }}
+        </option>
+      </select>
+      <small
+        class="text-danger"
+        *ngIf="
+          addShowtimeForm.get('movieId')?.invalid &&
+          addShowtimeForm.get('movieId')?.touched
+        "
+      >
+        Please select a movie.
+      </small>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Theatre</label>
+      <select class="form-control" formControlName="theatreId">
+        <option *ngFor="let theatre of theatres" [value]="theatre.theatreId">
+          {{ theatre.name }} - {{ theatre.location }}
+        </option>
+      </select>
+      <small
+        class="text-danger"
+        *ngIf="
+          addShowtimeForm.get('theatreId')?.invalid &&
+          addShowtimeForm.get('theatreId')?.touched
+        "
+      >
+        Please select a theatre.
+      </small>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Show Date</label>
+      <input type="date" class="form-control" formControlName="showDate" />
+      <small
+        class="text-danger"
+        *ngIf="
+          addShowtimeForm.get('showDate')?.invalid &&
+          addShowtimeForm.get('showDate')?.touched
+        "
+      >
+        Please select a valid show date.
+      </small>
+    </div>
+
+    <input type="hidden" formControlName="availableSeats" />
+
+    <button
+      class="btn btn-primary"
+      type="submit"
+      [disabled]="addShowtimeForm.invalid || loadingSubmit"
+    >
+      <span *ngIf="loadingSubmit">Adding Showtime...</span>
+      <span *ngIf="!loadingSubmit">Add Showtime</span>
+    </button>
+    <p class="text-center text-success" *ngIf="successMessage">
+      {{ successMessage }}
+    </p>
+  </form>
+</div>
+<p class="text-center text-muted" *ngIf="loadingMovies || loadingTheatres">
+  Loading movies and theatres...
+</p>
+<p class="text-center text-danger" *ngIf="errorMessage">{{ errorMessage }}</p>

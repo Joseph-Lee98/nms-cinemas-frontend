@@ -8,4 +8,9 @@
     {{ showAddTheatreForm ? "Cancel" : "Add a New Theatre" }}
   </button>
   <app-add-theatre *ngIf="showAddTheatreForm"></app-add-theatre>
+
+  <button class="btn btn-primary" (click)="toggleAddShowtimeForm()">
+    {{ showAddShowtimeForm ? "Cancel" : "Add a New Showtime" }}
+  </button>
+  <app-add-showtime *ngIf="showAddShowtimeForm"></app-add-showtime>
 </div>
